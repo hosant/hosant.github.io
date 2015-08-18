@@ -1,0 +1,81 @@
+---
+title       : A Mileage Prediction Application
+subtitle    : Simple Shiny App. Example
+author      : Santiago Hernandez
+job         : 
+framework   : io2012        # {io2012, html5slides, shower, dzslides, ...}
+highlighter : highlight.js  # {highlight.js, prettify, highlight}
+hitheme     : tomorrow      # 
+widgets     : [mathjax, bootstrap]            # {mathjax, quiz, bootstrap}
+mode        : selfcontained # {standalone, draft}
+knit        : slidify::knit2slides
+---
+
+## Power vs Milleage.  
+  
+An important factor when choosing a vehicle is **power**. A low power car will often struggle
+with high loads and difficult terrain. It can be said that power correlates with the *usefulness*
+of a car.  
+
+However, power is hardly free. **Mileage**, defined as *distance* (measured in miles) travelled per *unit of combustible*, 
+is also widely considered as one of the most important topics when choosing a car as it 
+correlates directly with the cost of use. Higher power often means higher energy consumption, 
+which is quantified as lower Mileage.  
+
+### But by how much can we *expect* power to impact fuel consumption?  
+  
+> Balancing power and mileage is of paramount importance when choosing and designing a vehicle.
+* Higher power often means higher fuel consumption.
+* We would like to quantify how is mileage expected to change in function of power.
+
+--- .class #id 
+
+## A Simple Mileage Prediction Algorithm.
+
+In order to solve this question I propose as a first approximation to use a linear model fitting
+a data set with the two variables.  
+
+The data used is the *mtcars* data set found at the *datasets* packages of base
+**R**. This data was "*extracted from the 1974 Motor Trend US magazine, and comprises fuel 
+consumption and 10 aspects of automobile design and performance for 32 automobiles (1973–74 models)*".
+The units used are **Miles per Gallon** and **HP (Horse Power)**.  
+
+> We compute the model using a least squares approximation to the data by calling the following **R** script:
+> ```{r}
+modFit <- lm(mpg~hp, data = mtcars)
+```  
+
+> And we show it's parameter with the following code:
+> ```{r, eval = FALSE}
+summary.lm(modFit)
+```  
+
+---
+
+## Fitness of the Model.
+
+```{r, echo=FALSE}
+expVar <- round(100 * summary(modFit)$r.squared,1)
+modelP <- round(summary(modFit)$coefficients[1,4],2)
+chng <- coef(modFit)[2]
+```
+
+```{r, echo=FALSE}
+summary.lm(modFit)
+```
+
+---
+
+## The Application.
+
+The prediction uses a least squares linear model fitting the *mtcars* dataset. As the summary shows 
+in the previous slide shows, the percentage of 
+explained variation by this model is `r expVar`%, with a P-value close to `r modelP`.  
+
+From the model we infer that we **expect a decrease on mileage of `r round(chng,3)`** per unit of power.
+
+A convenient way to consult the computed model is the associated Shiny Application that can be found at: 
+  
+https://hosant.shinyapps.io/DataProdAss
+
+Instructions can be found on the page.
