@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Information Entropy as Measure of Quality of Reviews.</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+<!-- MathJax scripts -->
+<script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Information Entropy as Measure of Quality of Reviews.</h1>
+
+<h2>Introduction</h2>
+
+<p>We can state that a review of a business is of <em>good quality</em> if
+it is well written and contains useful information for prospective
+costumers. I consider that discerning between good and bad reviews
+<strong>at the moment they are submitted</strong> is an important issue for
+sites like Yelp, users of such sites and business alike. Quality
+reviews should be given more prominence at the moment of
+evaluating a business or presenting information to the users of
+review sites.</p>
+
+<p>The <strong>main objective</strong> of this work is <strong>to propose</strong> a non-parametric
+measure of <em>quality of reviews</em> submitted by Yelp users. 
+Under the assumption that Yelp&#39;s elite
+members write, on average, reviews of good quality I will say that
+the measure is effective if the standard deviation of a
+significant sample of users that had elite status at least during
+one year is significantly lower than that of the general
+population. We will say that a measure of quality is effective if
+the standard deviation of the <em>quality values</em> of population
+tagged as <em>elite</em> is lower than the standard deviation of the
+general population with a significance level of \(p \leq 0.05\). The
+main <strong>hypothesis</strong> is that at least one of the proposed measure
+will meet this criteria. </p>
+
+<p>The measures proposed are based on Shannon&#39;s Entropy, which is a
+measure of the information content of a string in terms of the
+distribution of its elements. A complete introduction of the
+theory behind the functions proposed and their properties is
+beyond the scope of this work and the stated 5 pages limit. </p>
+
+<h2>Methods and Data</h2>
+
+<p>In information theory, Shannon&#39;s Entropy of a string \(S\) is
+defined as:
+\[H(S) = -\sum_{i}P(c_i) \text{log}_2 (P(c_i)),\]
+where \(c_i\) is each of the different characters (with respect a
+dictionary) of the string \(S\) and \(P(c_i)\) is the distribution of
+each character among the string \(S\), Formally \(P(c_i) =
+\#(c_i)/|S|\), where \(\#(c_i)\) is the number of times that \(c_i\)
+appears in \(S\) and \(|S|\) is the longitude of the string.</p>
+
+<h3>The Proposed Functions.</h3>
+
+<p>For this project I analyze six variations of Shannon&#39;s Entropy as
+a <strong>measure of quality</strong>. These variations have the form:
+\[H_d(X) = -\sum_{i}P(x_i) \text{log}_2 (P_D(x_i)),\]
+where the object \(x\) can be a character, like in the original
+definition, or a whole word and \(P_D\) is a probability
+distribution function in of the following three categories:
+ <em>local</em>, <em>universal</em> and <em>relative</em>.</p>
+
+<ul>
+<li><p><strong>Local distributions</strong> are based on the string \(X\), separated
+in either characters (letter L.H. for short) or words (word L.H.).</p></li>
+<li><p><strong>Universal distributions</strong> are based on the concatenation of all
+strings in a sample set, separated again in words (words U.H.) or characters (letter U.H) .</p></li>
+<li><p><strong>Relative/Conditional distributions</strong> are based on the concatenation of all
+reviews in a sample set on which the user held <em>elite</em> member status
+at least once (letter C.H and word C.H respectively).</p></li>
+</ul>
+
+<p>Is important to note that information entropy is robust when comes
+to the length of text, as shown in the following plot of letter
+based entropy as function of the number of reviews concatenated:</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk entrVSRcount"/> </p>
+
+<h3>The Data</h3>
+
+<p>The data collected consist on 15,000 randomly chosen reviewers
+(without replacement) and the entropy value of all their written
+reviews seen as a single string. After gathering the text,
+all the six functions are applied to the concatenated review text of each
+user. In the case of word entropy, the punctuation signs,
+parenthesis and line escapes (&#39;!&#39;,&#39;?&#39;, &#39;.&#39;, &#39;(&#39;, &#39;)&#39; and &#39;New line&#39;) are
+removed before separating words by spaces. For character entropy
+all characters are considered, including special characters. 
+In total, 8,479,520 words were considered of which  233,505 were
+unique and 32,675,544 characters were collected of which 333 were
+unique. </p>
+
+<h3>Statistical Model for Evaluation</h3>
+
+<p>As stated in the introduction, under the assumption of the
+existence of an <em>optimal</em> quality value and that elite members
+write better reviews more often than the general population, for
+any measure of quality, the set of values for a quality function
+should show lower variation among the population of elite members
+than that of the general population. The converse should also
+hold.</p>
+
+<p>Given above&#39;s argument, to determine which, if any, of the
+proposed functions represent a good measure for the quality of the
+text I propose to use the standard deviation on the set of the
+outputs on each of the six functions. In other words, if
+\(\sigma_{P}\) is the standard deviation of the general population
+and \(\sigma_{E}\) is the standard deviation of elite members, then
+\(\sigma_{P}-\sigma_{E} > 0\) and the bigger this difference is, the
+more accurate is the measure. In order to determine if this difference is
+significant we will use the P-value, fixing the required significance
+level at \(p \geq 0.5\).  </p>
+
+<p>Now, gathering the data for the initial sample took several days of computing
+time hence sampling a significant number of similar sets is not feasible. 
+For this reason, <strong>bootstrapping</strong> is used to estimate the \(p\) value by resampling
+with replacement 100 sets of 1000 randomly chosen pairs from the original
+sample set in order to obtain an estimate of the distribution of the
+differences of the standard deviations.</p>
+
+<h2>Results</h2>
+
+<h3>Evaluating the Functions.</h3>
+
+<p>The next figure shows density plots for all the six functions
+evaluated on the sample set, the plots are labelled 1 if
+they correspond to entropy values of elite members 
+and 0 otherwise.</p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk expData"/> </p>
+
+<p><img src="data:image/png;base64,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" alt="plot of chunk expData2"/> </p>
+
+<p>The density plots suggest that all the functions, with the 
+exception of word C.H, show lower variance towards a central 
+value for elite users when compared to no-elite ones.</p>
+
+<p>The standard deviation of the six sets is as follows:</p>
+
+<table><thead>
+<tr>
+<th align="center">Function</th>
+<th align="center">Elite</th>
+<th align="center">General</th>
+<th align="center">Difference</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="center">letter L.H.</td>
+<td align="center">0.096</td>
+<td align="center">0.154</td>
+<td align="center">0.059</td>
+</tr>
+<tr>
+<td align="center">word L.H.</td>
+<td align="center">1.129</td>
+<td align="center">1.242</td>
+<td align="center">0.113</td>
+</tr>
+<tr>
+<td align="center">letter U.H</td>
+<td align="center">0.125</td>
+<td align="center">0.222</td>
+<td align="center">0.096</td>
+</tr>
+<tr>
+<td align="center">word U.H.</td>
+<td align="center">0.904</td>
+<td align="center">0.955</td>
+<td align="center">0.051</td>
+</tr>
+<tr>
+<td align="center">letter C.H.</td>
+<td align="center">0.105</td>
+<td align="center">0.178</td>
+<td align="center">0.073</td>
+</tr>
+<tr>
+<td align="center">word C.H.</td>
+<td align="center">0.861</td>
+<td align="center">0.662</td>
+<td align="center">-0.199</td>
+</tr>
+</tbody></table>
+
+<p>Which suggest that function based in <strong>world local entropy</strong> is
+the best measure measure of quality. Next is to establish the
+significance of the data.</p>
+
+<h3>Statistical Significance of the Data.</h3>
+
+<p>By bootstrapping, the standard deviation of the standards
+deviations of the difference on between the values for the
+function based in world local entropy is:</p>
+
+<pre><code class="r">set.seed(102015)
+
+prodSD &lt;- function (size = 0) {
+    gSamp = sample(cDF$wordLoclH[cDF$eBool==0], size, 
+        replace = TRUE)
+    eSamp = sample(cDF$wordLoclH[cDF$eBool==1], size, 
+        replace = TRUE)
+    sd(gSamp - eSamp)
+}
+
+rsSD = sd(sapply(1:100, function(x) prodSD(1000)))
+rsSD
+</code></pre>
+
+<pre><code>## [1] 0.0360468
+</code></pre>
+
+<p>Which implies that \(\sigma_{P}-\sigma_{\text{word L.H.}}\) = 0.113
+is at about 3.136 standards deviations
+of the equality, which means that 
+the \(p\)-value is well bellow 0.05 and the sample is 
+<strong>significant</strong>.</p>
+
+<h2>Discussion</h2>
+
+<p>For this project I proposed and tested six related, but different
+functions of information entropy as a measure of quality of the
+review text submitted by Yelp users.</p>
+
+<p>Under the assumption that members that held elite status at least
+once submitted reviews of better quality at a higher rate than the
+general population, any quality measure should show lower
+variation among the elite population, hence this standard
+deviation differential was used to test the proposed measures. The
+function chosen is based on the Shannon&#39;s entropy of the words
+used in a review. This function yielded the biggest standard
+deviation differential and was also shown to be statistical
+significant.</p>
+
+<p>Given the presented results, <em>word based</em> Shannon&#39;s entropy is a
+good measure of quality that can be used to weight the reviews
+submitted without the need of other input.</p>
+
+<p>For more information on Shannon entropy consult: 
+<a href="https://en.wikipedia.org/wiki/Entropy_%28information_theory%29">https://en.wikipedia.org/wiki/Entropy_%28information_theory%29</a></p>
+
+</body>
+
+</html>
